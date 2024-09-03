@@ -7,40 +7,31 @@ import Footer from './components/Footer';
 import './App.css';
 
 function App() {
-  const [birthYear, setBirthYear] = useState(''); // Store the birth year input
-
-  // Calculate the current age based on the birth year
-  const currentYear = new Date().getFullYear();
-  const userAge = currentYear - birthYear;
+  // Use state to store the user's age
+  const [userAge, setUserAge] = useState(); //
 
   // Handle input change
-  const handleBirthYearChange = (event) => {
-    const inputYear = event.target.value;
-
-    // Prevent negative numbers and enforce a minimum age of 12
-    if (inputYear > 0 && currentYear - inputYear >= 12) {
-      setBirthYear(inputYear);
-    } else if (inputYear === '') {
-      setBirthYear(''); // Allow clearing the input
-    }
+  const handleAgeChange = (event) => {
+    setUserAge(event.target.value);
   };
 
   return (
     <div className="App">
       <label style={{ marginTop: '20px' }}>
-        Please enter your birth year: 
+        Please enter your age: 
         <input 
           type="number" 
           placeholder="Type your age" 
-          value={birthYear} 
-          onChange={handleBirthYearChange} 
+          value={userAge} 
+          onChange={handleAgeChange} 
           style={{ marginLeft: '10px', padding: '5px' }}
+          min="0" // Prevents negative numbers
         />
-      </label>
-      {birthYear && <Header birthYear={birthYear} age={userAge} />}
-      <Navbar />
-      <Main />
-      <Footer />
+        </label>
+        <Header age={userAge} />
+        <Navbar />
+        <Main />
+        <Footer />
     </div>
   );
 }
